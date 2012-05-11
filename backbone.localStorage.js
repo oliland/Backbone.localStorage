@@ -4,14 +4,13 @@
  */
 
 (function() {
+
+// AMD module support
+define(['backbone'], function(backbone) {
+
 // A simple module to replace `Backbone.sync` with *localStorage*-based
 // persistence. Models are given GUIDS, and saved into a JSON object. Simple
 // as that.
-
-// Hold reference to Underscore.js and Backbone.js in the closure in order
-// to make things work even if they are removed from the global namespace
-var _ = this._;
-var Backbone = this.Backbone;
 
 // Generate four random hex digits.
 function S4() {
@@ -132,5 +131,7 @@ Backbone.getSyncMethod = function(model) {
 Backbone.sync = function(method, model, options, error) {
 	return Backbone.getSyncMethod(model).apply(this, [method, model, options, error]);
 };
+
+})
 
 })();

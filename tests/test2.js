@@ -1,21 +1,12 @@
-define("backbone-loader", [
-	"vendor/order!vendor/jquery-1.7",
-	"vendor/order!vendor/underscore",
-	"vendor/order!vendor/backbone",
-	"vendor/order!../backbone.localStorage"
-], function() {
-	return { _: _.noConflict(), Backbone: Backbone.noConflict() };
+require.config({
+  "paths": {
+    "underscore": "vendor/underscore",
+    "backbone": "vendor/backbone",
+    "localstorage": "../backbone.localStorage"
+  }
 });
 
-define("underscore", ["backbone-loader"], function(Loader) {
-	return Loader._;
-});
-
-define("backbone", ["backbone-loader"], function(Loader) {
-	return Loader.Backbone;
-});
-
-require(["backbone"], function(Backbone) {
+require(["underscore", "backbone", "localstorage"], function(_, backbone, localstorage) {
 	var Library = Backbone.Collection.extend({
 		localStorage: new Backbone.LocalStorage("libraryStore")
 	});
